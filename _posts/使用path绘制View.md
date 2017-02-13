@@ -18,12 +18,12 @@ Path path = new Path();
 // onDraw(Canvas canvas)中使用Path进行绘制
 @Override。
 protected void onDraw(Canvas canvas) {
-	super.onDraw(canvas);
-	mPath.reset();			// 重置Path
-	mPath.lineTo(100, 100);
-	mPath.lineTo(100, 200);
-	mPath.lineTo(150, 250);
-	canvas.drawPath(mPath, mPaint);
+super.onDraw(canvas);
+mPath.reset();			// 重置Path
+mPath.lineTo(100, 100);
+mPath.lineTo(100, 200);
+mPath.lineTo(150, 250);
+canvas.drawPath(mPath, mPaint);
 }
 ```
 上面代码的效果图：		
@@ -32,24 +32,24 @@ protected void onDraw(Canvas canvas) {
 
 2. void moveTo(float x, float y)--将起始轮廓点移至x，y坐标点，默认情况为0,0点
 ```java
-   @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        mPath.reset();
-        mPath.lineTo(100, 100);
-        mPath.lineTo(100, 200);
-        mPath.lineTo(150, 250);
+@Override
+protected void onDraw(Canvas canvas) {
+super.onDraw(canvas);
+mPath.reset();
+mPath.lineTo(100, 100);
+mPath.lineTo(100, 200);
+mPath.lineTo(150, 250);
 
-        canvas.drawPath(mPath, mPaint);
-        mPath.reset();
-        mPath.moveTo(20, 300);
-        mPath.lineTo(50, 350);
-        mPath.lineTo(100, 400);
-        mPath.lineTo(180, 380);
-        mPath.lineTo(250, 380);
+canvas.drawPath(mPath, mPaint);
+mPath.reset();
+mPath.moveTo(20, 300);
+mPath.lineTo(50, 350);
+mPath.lineTo(100, 400);
+mPath.lineTo(180, 380);
+mPath.lineTo(250, 380);
 
-        canvas.drawPath(mPath, mPaint);
-    }
+canvas.drawPath(mPath, mPaint);
+}
 ```
 在原来的基础上重置了Path对象，调用moveTo方法将画笔点一移至坐标点（20，500），效果图：
 
@@ -58,16 +58,16 @@ protected void onDraw(Canvas canvas) {
 3. void close() --回到初始点形成封闭的曲线
 ```java
 @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        .....
-        .....
-        .....
-        mPath.lineTo(250, 380);
-        mPath.close();
+protected void onDraw(Canvas canvas) {
+super.onDraw(canvas);
+.....
+.....
+.....
+mPath.lineTo(250, 380);
+mPath.close();
 
-        canvas.drawPath(mPath, mPaint);
-    }
+canvas.drawPath(mPath, mPaint);
+}
 ```
 效果图：
 
@@ -75,9 +75,9 @@ protected void onDraw(Canvas canvas) {
 
 4. void addArc(RectF oval, float startAngle, float sweepAngle)
 将指定的弧添加到路径作为新轮廓。参数：
-	+ RectF：这个圆弧取自RectF矩形的内接椭圆上的一部分
-	+ startAngle：起始位置的角度值
-	+ sweepAngle：旋转的角度值
++ RectF：这个圆弧取自RectF矩形的内接椭圆上的一部分
++ startAngle：起始位置的角度值
++ sweepAngle：旋转的角度值
 圆弧长度由后两个参数决定
 ```java
 Rect rect = new Rect(100, 100, 300, 250);
@@ -97,8 +97,8 @@ canvas.drawPath(mPath, mPaint);
 
 5. void addTo(RectF oval, float startAngle, float sweepAngle)方法
 arcTo和addArc的区别:
-	1. addArc可以直接加入一段椭圆弧。使用arcTo还需要使用moveTo指定当前点的坐标。
-	2. arcTo如果当前点坐标和曲线的起始点不是同一个点的话，还会自动添加一条直线补齐路径。
+1. addArc可以直接加入一段椭圆弧。使用arcTo还需要使用moveTo指定当前点的坐标。
+2. arcTo如果当前点坐标和曲线的起始点不是同一个点的话，还会自动添加一条直线补齐路径。
 ```java
 Rect rect = new Rect(100, 100, 300, 250);
 canvas.drawRect(rect, mPaint);
@@ -214,15 +214,15 @@ Path.Op.XOR效果：
 通过drawTextOnPath(Path path, Paint paint)方法可以根据路径绘制文字
 
 ```java
-   Path path1 = new Path();
-        path1.addCircle(150, 150, 100, Path.Direction.CW);
-        Path path2 = new Path();
-        path2.addCircle(200, 200, 100, Path.Direction.CW);
-        path1.op(path2, Path.Op.XOR);
-        canvas.drawPath(path1, mPaint);
+Path path1 = new Path();
+path1.addCircle(150, 150, 100, Path.Direction.CW);
+Path path2 = new Path();
+path2.addCircle(200, 200, 100, Path.Direction.CW);
+path1.op(path2, Path.Op.XOR);
+canvas.drawPath(path1, mPaint);
 
-        mPaint.setTextSize(20);
-        canvas.drawTextOnPath("Draw Text On Path",path1, 0 ,0, mPaint);
+mPaint.setTextSize(20);
+canvas.drawTextOnPath("Draw Text On Path",path1, 0 ,0, mPaint);
 ```
 
 绘制文字后的效果图更容易理解XOR的效果：
@@ -261,78 +261,78 @@ path1 = (path1 ∪ path2) - (path1 ∩ path2)
 
 ```java
 public class PathEffectView extends View {
-    private final String TAG = getClass().getSimpleName();
+private final String TAG = getClass().getSimpleName();
 
-    private float mPhase;
-    private PathEffect[] mEffects = new PathEffect[7];
-    private int[] mColors;
-    private Paint mPaint;
-    private Path mPath;
+private float mPhase;
+private PathEffect[] mEffects = new PathEffect[7];
+private int[] mColors;
+private Paint mPaint;
+private Path mPath;
 
-    public PathEffectView(Context context) {
-        this(context, null);
-    }
+public PathEffectView(Context context) {
+this(context, null);
+}
 
-    public PathEffectView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
+public PathEffectView(Context context, AttributeSet attrs) {
+this(context, attrs, 0);
+}
 
-    public PathEffectView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
+public PathEffectView(Context context, AttributeSet attrs, int defStyleAttr) {
+super(context, attrs, defStyleAttr);
+init();
+}
 
-    private void init() {
-        mPaint = new Paint();
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(4);
+private void init() {
+mPaint = new Paint();
+mPaint.setStyle(Paint.Style.STROKE);
+mPaint.setStrokeWidth(4);
 
-        mPath = new Path();
-        mPath.moveTo(20, 20);
-        for (int i = 1; i <= 15; i++) {
-            // 生成15个点，绘制一条线
-            mPath.lineTo(i * 20, (float) (Math.random() * 60));
-        }
+mPath = new Path();
+mPath.moveTo(20, 20);
+for (int i = 1; i <= 15; i++) {
+// 生成15个点，绘制一条线
+mPath.lineTo(i * 20, (float) (Math.random() * 60));
+}
 
-        mColors = new int[]{
-                Color.BLACK, Color.BLUE, Color.CYAN, Color.GREEN,
-                Color.GREEN, Color.MAGENTA, Color.RED, Color.YELLOW
-        };
-    }
+mColors = new int[]{
+Color.BLACK, Color.BLUE, Color.CYAN, Color.GREEN,
+Color.GREEN, Color.MAGENTA, Color.RED, Color.YELLOW
+};
+}
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        // 将背景填充至百色
-        canvas.drawColor(Color.WHITE);
-        // 下面开始绘制7中路径的效果
-        // 使用路径效果
-        mEffects[0] = null;
-        // 使用CornerPathEffect轮径效果 radius
-        mEffects[1] = new CornerPathEffect(10);
-        // 使用DiscretePathEffect
-        mEffects[2] = new DiscretePathEffect(3.0f, 5.0f);
-        // 使用DashPathEffect
-        mEffects[3] = new DashPathEffect(new float[]{20, 10, 5, 10}, mPhase);
-        // 使用PathDashEffect
-        Path p = new Path();
-        p.addRect(0, 0, 8, 8, Path.Direction.CCW);
-        mEffects[4] = new PathDashPathEffect(p, 12, mPhase, PathDashPathEffect.Style.ROTATE);
-        // 初始化ComposePathEffect
-        mEffects[5] = new ComposePathEffect(mEffects[2], mEffects[4]);
-        // 使用SumPathEffect
-        mEffects[6] = new SumPathEffect(mEffects[4], mEffects[3]);
-        for (int i = 0; i < mEffects.length; i++) {
-            mPaint.setPathEffect(mEffects[i]);
-            mPaint.setColor(mColors[i]);
-            canvas.drawPath(mPath, mPaint);
-            canvas.translate(0, 60);
-        }
+@Override
+protected void onDraw(Canvas canvas) {
+super.onDraw(canvas);
+// 将背景填充至百色
+canvas.drawColor(Color.WHITE);
+// 下面开始绘制7中路径的效果
+// 使用路径效果
+mEffects[0] = null;
+// 使用CornerPathEffect轮径效果 radius
+mEffects[1] = new CornerPathEffect(10);
+// 使用DiscretePathEffect
+mEffects[2] = new DiscretePathEffect(3.0f, 5.0f);
+// 使用DashPathEffect
+mEffects[3] = new DashPathEffect(new float[]{20, 10, 5, 10}, mPhase);
+// 使用PathDashEffect
+Path p = new Path();
+p.addRect(0, 0, 8, 8, Path.Direction.CCW);
+mEffects[4] = new PathDashPathEffect(p, 12, mPhase, PathDashPathEffect.Style.ROTATE);
+// 初始化ComposePathEffect
+mEffects[5] = new ComposePathEffect(mEffects[2], mEffects[4]);
+// 使用SumPathEffect
+mEffects[6] = new SumPathEffect(mEffects[4], mEffects[3]);
+for (int i = 0; i < mEffects.length; i++) {
+mPaint.setPathEffect(mEffects[i]);
+mPaint.setColor(mColors[i]);
+canvas.drawPath(mPath, mPaint);
+canvas.translate(0, 60);
+}
 
-        // 改变phase值，形成动画效果
-        mPhase += 1;
-        invalidate();
-    }
+// 改变phase值，形成动画效果
+mPhase += 1;
+invalidate();
+}
 }
 ```
 
@@ -340,9 +340,47 @@ public class PathEffectView extends View {
 
 <img src="./path_imgs/path_effects.png">
 
+###PathMeasure
+PathMeasure是一个用来测量Path的类，主要有一下方法：
+构造方法
+
+| 方法名 | 释义 |
+| ----- | ---- |
+| PathMeasure | 创建一个空的PathMeasure |
+| PathMeasure | 创建 PathMeasure 并关联一个指定的Path(Path需要已经创建完成)。|
+
+公共方法
+
+| 返回值 | 方法名 | 释义 |
+| ----- | ----- | ---- |
+| void | setPath(Path path, boolean forceClosed) | 关联一个path |
+| boolean | isClose() | 是否闭合 |
+| float | getLength() | 获取Path的长度 | 
+| boolean | nextContour() | 跳转到下一个轮廓 | 
+| boolean | getSegment(float startD, float stopD, Path dst, boolean startWithMoveTo) | 截取片段 | 
+| boolean | getPosTan(float distance, float[] pos, float[] tan) | 获取指定长度的位置坐标及该点切线值 |
+| boolean | getMatrix(float distance, Matrix matrix, int flags) | 获取指定长度的位置坐标及该点的Matrix | 
+
+无参的构造方法：    
+创建一个空的PathMeasure对象，在使用之前需要调用setPath()方法与Path进行关联，如果关联之后这个Path发生了变化，需要再次调用setPath()重新关联。
+
+有参的构造方法：    
+这个构造方法有两个参数，第一个参数用来关联一个Path，同setPath()方法一样的作用，第二个参数用来确保Path是否闭合，如果为true，则不论之前Path是否闭合，都会自动闭合该 Path。
+
+在这里有两点需要明确:
+
+
+> + 不论 forceClosed 设置为何种状态(true 或者 false)， 都不会影响原有Path的状态，即 Path 与 PathMeasure 关联之后，之前的的 Path 不会有任何改变。    
++ forceClosed 的设置状态可能会影响测量结果，如果 Path 未闭合但在与 PathMeasure 关联的时候设置 forceClosed 为 true 时，测量结果可能会比 Path 实际长度稍长一点，获取到到是该 Path 闭合时的状态。
+
+关于PathMeasure的具体介绍请看这里：
+
+[安卓自定义View进阶-Path之玩出花样(PathMeasure)](http://blog.csdn.net/u013831257/article/details/51565591)
+
 通过path可以实现很多酷炫的动画效果，感兴趣的话可以自己搞搞。
 
 参考文章：
+
 [android 用Path 绘制各种图形，Path的方法解析](http://blog.csdn.net/legend12300/article/details/51122314)
 
 [android绘图之Path总结](http://www.jianshu.com/p/f1e4fc2feb25)
